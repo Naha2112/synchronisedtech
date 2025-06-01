@@ -151,7 +151,7 @@ importers:
         version: 5.0.2(jspdf@3.0.1)
       langchain:
         specifier: ^0.3.26
-        version: 0.3.26(@langchain/core@0.3.56(openai@4.100.0(zod@3.24.4)))(openai@4.100.0(zod@3.24.4))
+        version: 0.3.26(@langchain/core@0.3.56(openai@4.104.0(zod@3.24.4)))(openai@4.104.0(zod@3.24.4))
       lucide-react:
         specifier: ^0.454.0
         version: 0.454.0(react@19.1.0)
@@ -168,8 +168,8 @@ importers:
         specifier: latest
         version: 0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       openai:
-        specifier: ^4.100.0
-        version: 4.100.0(zod@3.24.4)
+        specifier: ^4.104.0
+        version: 4.104.0(zod@3.24.4)
       path:
         specifier: latest
         version: 0.12.7
@@ -2099,8 +2099,8 @@ packages:
     resolution: {integrity: sha512-y0W+X7Ppo7oZX6eovsRkuzcSM40Bicg2JEJkDJ4irIt1wsYAP5MLSNv+QAogO8xivMffw/9OvV3um1pxXgt1uA==}
     engines: {node: ^10.13.0 || >=12.0.0}
 
-  openai@4.100.0:
-    resolution: {integrity: sha512-9soq/wukv3utxcuD7TWFqKdKp0INWdeyhUCvxwrne5KwnxaCp4eHL4GdT/tMFhYolxgNhxFzg5GFwM331Z5CZg==}
+  openai@4.104.0:
+    resolution: {integrity: sha512-p99EFNsA/yX6UhVO93f5kJsDRLAg+CTA2RBqdHK4RtK8u5IJw32Hyb2dTGKbnnFmnuoBv5r7Z2CURI9sGZpSuA==}
     hasBin: true
     peerDependencies:
       ws: ^8.18.0
@@ -2822,14 +2822,14 @@ snapshots:
 
   '@kurkle/color@0.3.4': {}
 
-  '@langchain/core@0.3.56(openai@4.100.0(zod@3.24.4))':
+  '@langchain/core@0.3.56(openai@4.104.0(zod@3.24.4))':
     dependencies:
       '@cfworker/json-schema': 4.1.1
       ansi-styles: 5.2.0
       camelcase: 6.3.0
       decamelize: 1.2.0
       js-tiktoken: 1.0.20
-      langsmith: 0.3.29(openai@4.100.0(zod@3.24.4))
+      langsmith: 0.3.29(openai@4.104.0(zod@3.24.4))
       mustache: 4.2.0
       p-queue: 6.6.2
       p-retry: 4.6.2
@@ -2839,20 +2839,20 @@ snapshots:
     transitivePeerDependencies:
       - openai
 
-  '@langchain/openai@0.5.10(@langchain/core@0.3.56(openai@4.100.0(zod@3.24.4)))':
+  '@langchain/openai@0.5.10(@langchain/core@0.3.56(openai@4.104.0(zod@3.24.4)))':
     dependencies:
-      '@langchain/core': 0.3.56(openai@4.100.0(zod@3.24.4))
+      '@langchain/core': 0.3.56(openai@4.104.0(zod@3.24.4))
       js-tiktoken: 1.0.20
-      openai: 4.100.0(zod@3.24.4)
+      openai: 4.104.0(zod@3.24.4)
       zod: 3.24.4
       zod-to-json-schema: 3.24.5(zod@3.24.4)
     transitivePeerDependencies:
       - encoding
       - ws
 
-  '@langchain/textsplitters@0.1.0(@langchain/core@0.3.56(openai@4.100.0(zod@3.24.4)))':
+  '@langchain/textsplitters@0.1.0(@langchain/core@0.3.56(openai@4.104.0(zod@3.24.4)))':
     dependencies:
-      '@langchain/core': 0.3.56(openai@4.100.0(zod@3.24.4))
+      '@langchain/core': 0.3.56(openai@4.104.0(zod@3.24.4))
       js-tiktoken: 1.0.20
 
   '@next/env@15.2.4': {}
@@ -4250,15 +4250,15 @@ snapshots:
       dompurify: 3.2.6
       html2canvas: 1.4.1
 
-  langchain@0.3.26(@langchain/core@0.3.56(openai@4.100.0(zod@3.24.4)))(openai@4.100.0(zod@3.24.4)):
+  langchain@0.3.26(@langchain/core@0.3.56(openai@4.104.0(zod@3.24.4)))(openai@4.104.0(zod@3.24.4)):
     dependencies:
-      '@langchain/core': 0.3.56(openai@4.100.0(zod@3.24.4))
-      '@langchain/openai': 0.5.10(@langchain/core@0.3.56(openai@4.100.0(zod@3.24.4)))
-      '@langchain/textsplitters': 0.1.0(@langchain/core@0.3.56(openai@4.100.0(zod@3.24.4)))
+      '@langchain/core': 0.3.56(openai@4.104.0(zod@3.24.4))
+      '@langchain/openai': 0.5.10(@langchain/core@0.3.56(openai@4.104.0(zod@3.24.4)))
+      '@langchain/textsplitters': 0.1.0(@langchain/core@0.3.56(openai@4.104.0(zod@3.24.4)))
       js-tiktoken: 1.0.20
       js-yaml: 4.1.0
       jsonpointer: 5.0.1
-      langsmith: 0.3.29(openai@4.100.0(zod@3.24.4))
+      langsmith: 0.3.29(openai@4.104.0(zod@3.24.4))
       openapi-types: 12.1.3
       p-retry: 4.6.2
       uuid: 10.0.0
@@ -4270,7 +4270,7 @@ snapshots:
       - openai
       - ws
 
-  langsmith@0.3.29(openai@4.100.0(zod@3.24.4)):
+  langsmith@0.3.29(openai@4.104.0(zod@3.24.4)):
     dependencies:
       '@types/uuid': 10.0.0
       chalk: 4.1.2
@@ -4280,7 +4280,7 @@ snapshots:
       semver: 7.7.2
       uuid: 10.0.0
     optionalDependencies:
-      openai: 4.100.0(zod@3.24.4)
+      openai: 4.104.0(zod@3.24.4)
 
   leac@0.6.0: {}
 
@@ -4432,7 +4432,7 @@ snapshots:
 
   oidc-token-hash@5.1.0: {}
 
-  openai@4.100.0(zod@3.24.4):
+  openai@4.104.0(zod@3.24.4):
     dependencies:
       '@types/node': 18.19.101
       '@types/node-fetch': 2.6.12
