@@ -27,7 +27,7 @@ export type SettingsActions = {
 
 // Default settings
 const defaultSettings: SettingsState = {
-  defaultCurrency: 'USD',
+  defaultCurrency: 'GBP',
   defaultPaymentTerms: 30,
   compactView: false,
   apiAccess: false,

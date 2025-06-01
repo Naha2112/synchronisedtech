@@ -1,0 +1,2 @@
+# AutoFlow Scheduled Email Cron Job - Runs every 5 minutes
+*/5 * * * * cd /Users/nahavipusans/Desktop/autoflow\ final && npm run cron:emails 

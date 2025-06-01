@@ -1,0 +1,38 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1D4ED8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1E40AF;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grayGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6B7280;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4B5563;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="95" fill="#0F172A" stroke="none"/>
+  
+  <!-- Geometric interlocking design -->
+  <g transform="translate(100,100)">
+    <!-- Top-left diamond part -->
+    <path d="M -30,-30 L 0,-60 L 30,-30 L 0,0 Z" fill="url(#blueGradient)" transform="rotate(0)"/>
+    
+    <!-- Top-right diamond part -->
+    <path d="M 30,-30 L 60,0 L 30,30 L 0,0 Z" fill="url(#grayGradient)" transform="rotate(0)"/>
+    
+    <!-- Bottom-right diamond part -->
+    <path d="M 30,30 L 0,60 L -30,30 L 0,0 Z" fill="url(#blueGradient)" transform="rotate(0)"/>
+    
+    <!-- Bottom-left diamond part -->
+    <path d="M -30,30 L -60,0 L -30,-30 L 0,0 Z" fill="url(#blueGradient)" transform="rotate(0)"/>
+    
+    <!-- Center overlapping elements -->
+    <rect x="-15" y="-45" width="30" height="90" fill="url(#blueGradient)" opacity="0.8"/>
+    <rect x="-45" y="-15" width="90" height="30" fill="url(#grayGradient)" opacity="0.8"/>
+  </g>
+  
+  <!-- Company name -->
+  <text x="100" y="170" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold" letter-spacing="2px">SYNCHRONISETECH</text>
+</svg> 

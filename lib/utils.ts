@@ -5,21 +5,51 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatCurrency(amount: number, currency = "USD"): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: currency,
+export function formatCurrency(amount: number, currency?: string): string {
+  // Force GBP as default currency
+  const effectiveCurrency = currency || "GBP";
+  
+  // Create a reliable number formatter that always shows the correct currency symbol
+  const formattedNumber = new Intl.NumberFormat("en-US", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  }).format(amount)
+  }).format(amount);
+  
+  // Map currencies to their symbols to avoid browser locale issues
+  const currencySymbols: { [key: string]: string } = {
+    'GBP': '£',
+    'USD': '$',
+    'EUR': '€',
+    'CAD': 'C$',
+    'AUD': 'A$',
+    'JPY': '¥'
+  };
+  
+  const symbol = currencySymbols[effectiveCurrency] || '£'; // Default to GBP
+  const result = `${symbol}${formattedNumber}`;
+  
+  return result;
 }
 
 export function formatDate(date: string | Date): string {
-  return new Date(date).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  })
+  // Consistent date formatting for the entire application
+  try {
+    const dateObj = date instanceof Date ? date : new Date(date);
+    
+    if (isNaN(dateObj.getTime())) {
+      return String(date); // Return original value if invalid date
+    }
+    
+    // Use a consistent format that works identically on server and client
+    return new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    }).format(dateObj);
+  } catch (error) {
+    console.error("Date formatting error:", error);
+    return String(date);
+  }
 }
 
 export function generateInvoiceNumber(prefix = "INV-", padLength = 3): string {

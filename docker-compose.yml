@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    platform: linux/arm64/v8
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # Change this to a secure password
+      MYSQL_DATABASE: myapp
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password  # Change this to a secure password
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+  image: arm64v8/phpmyadmin
+  container_name: phpmyadmin
+  restart: always
+  environment:
+    PMA_HOST: mysql
+    PMA_PORT: 3306
+    MYSQL_ROOT_PASSWORD: rootpassword
+  ports:
+    - "8080:80"
+  depends_on:
+    - mysql
+
+volumes:
+  mysql_data: 

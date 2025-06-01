@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Templates Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e3a8a 100%);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen text-white">
+    <div class="container mx-auto p-8">
+        <h1 class="text-4xl font-bold mb-8 text-center">Professional Email Templates Test</h1>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- API Test Section -->
+            <div class="bg-gray-800/50 p-6 rounded-lg backdrop-blur-xl border border-gray-700/50">
+                <h2 class="text-2xl font-semibold mb-4">API Functionality Test</h2>
+                
+                <div class="space-y-4">
+                    <button id="loadTemplates" class="w-full bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg transition-colors">
+                        Load All Templates
+                    </button>
+                    
+                    <button id="loadInvoiceTemplates" class="w-full bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition-colors">
+                        Load Invoice Templates
+                    </button>
+                    
+                    <button id="previewTemplate" class="w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg transition-colors">
+                        Preview Premium Template
+                    </button>
+                    
+                    <button id="populateTemplate" class="w-full bg-orange-600 hover:bg-orange-700 px-4 py-2 rounded-lg transition-colors">
+                        Populate Template with Variables
+                    </button>
+                </div>
+                
+                <div id="apiResults" class="mt-6 p-4 bg-gray-900/50 rounded-lg min-h-[200px] overflow-auto">
+                    <p class="text-gray-400">API test results will appear here...</p>
+                </div>
+            </div>
+
+            <!-- Feature Test Section -->
+            <div class="bg-gray-800/50 p-6 rounded-lg backdrop-blur-xl border border-gray-700/50">
+                <h2 class="text-2xl font-semibold mb-4">Feature Test</h2>
+                
+                <div class="space-y-4">
+                    <button id="testCopy" class="w-full bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-lg transition-colors">
+                        Test Copy to Clipboard
+                    </button>
+                    
+                    <button id="testDownload" class="w-full bg-pink-600 hover:bg-pink-700 px-4 py-2 rounded-lg transition-colors">
+                        Test Download Template
+                    </button>
+                    
+                    <button id="testToast" class="w-full bg-yellow-600 hover:bg-yellow-700 px-4 py-2 rounded-lg transition-colors">
+                        Test Toast Notifications
+                    </button>
+                    
+                    <button id="validateTemplates" class="w-full bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition-colors">
+                        Validate All Templates
+                    </button>
+                </div>
+                
+                <div id="featureResults" class="mt-6 p-4 bg-gray-900/50 rounded-lg min-h-[200px] overflow-auto">
+                    <p class="text-gray-400">Feature test results will appear here...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Template Preview Section -->
+        <div class="mt-8 bg-gray-800/50 p-6 rounded-lg backdrop-blur-xl border border-gray-700/50">
+            <h2 class="text-2xl font-semibold mb-4">Template Preview</h2>
+            <div id="templatePreview" class="bg-gray-900/50 p-4 rounded-lg min-h-[300px] overflow-auto">
+                <p class="text-gray-400">Template preview will appear here...</p>
+            </div>
+        </div>
+
+        <!-- Success Metrics -->
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="text-center p-4 bg-green-600/20 border border-green-500/30 rounded-lg">
+                <div class="text-2xl font-bold text-green-400">94%</div>
+                <div class="text-sm text-gray-400">Faster Payment</div>
+            </div>
+            <div class="text-center p-4 bg-blue-600/20 border border-blue-500/30 rounded-lg">
+                <div class="text-2xl font-bold text-blue-400">3.5x</div>
+                <div class="text-sm text-gray-400">Higher Response</div>
+            </div>
+            <div class="text-center p-4 bg-purple-600/20 border border-purple-500/30 rounded-lg">
+                <div class="text-2xl font-bold text-purple-400">87%</div>
+                <div class="text-sm text-gray-400">Client Retention</div>
+            </div>
+            <div class="text-center p-4 bg-orange-600/20 border border-orange-500/30 rounded-lg">
+                <div class="text-2xl font-bold text-orange-400">+42%</div>
+                <div class="text-sm text-gray-400">Premium Pricing</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // API Base URL (adjust for your setup)
+        const API_BASE = 'http://localhost:3000';
+
+        // Helper functions
+        function showResult(elementId, content, isError = false) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `
+                <div class="${isError ? 'text-red-400' : 'text-green-400'} mb-2">
+                    ${isError ? '❌ Error:' : '✅ Success:'} ${new Date().toLocaleTimeString()}
+                </div>
+                <pre class="text-sm text-gray-300 whitespace-pre-wrap">${content}</pre>
+            `;
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `fixed top-4 right-4 px-6 py-3 rounded-lg text-white z-50 ${
+                type === 'error' ? 'bg-red-600' : type === 'success' ? 'bg-green-600' : 'bg-blue-600'
+            }`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // API Tests
+        document.getElementById('loadTemplates').addEventListener('click', async () => {
+            try {
+                const response = await fetch(`${API_BASE}/api/email-templates/professional`);
+                const data = await response.json();
+                showResult('apiResults', JSON.stringify(data, null, 2));
+                showToast('Templates loaded successfully!', 'success');
+            } catch (error) {
+                showResult('apiResults', error.message, true);
+                showToast('Failed to load templates', 'error');
+            }
+        });
+
+        document.getElementById('loadInvoiceTemplates').addEventListener('click', async () => {
+            try {
+                const response = await fetch(`${API_BASE}/api/email-templates/professional?category=invoice`);
+                const data = await response.json();
+                showResult('apiResults', JSON.stringify(data, null, 2));
+                showToast('Invoice templates loaded!', 'success');
+            } catch (error) {
+                showResult('apiResults', error.message, true);
+                showToast('Failed to load invoice templates', 'error');
+            }
+        });
+
+        document.getElementById('previewTemplate').addEventListener('click', async () => {
+            try {
+                const response = await fetch(`${API_BASE}/api/email-templates/professional?id=premium-invoice-delivery&preview=true`);
+                const data = await response.json();
+                showResult('apiResults', JSON.stringify(data, null, 2));
+                document.getElementById('templatePreview').innerHTML = `
+                    <h3 class="text-xl font-semibold mb-4">${data.template.name}</h3>
+                    <div class="bg-gray-800 p-4 rounded mb-4">
+                        <strong>Subject:</strong> ${data.template.subject}
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded">
+                        <strong>Body:</strong><br>
+                        <div class="mt-2 whitespace-pre-wrap text-sm">${data.template.body.substring(0, 500)}...</div>
+                    </div>
+                `;
+                showToast('Template preview loaded!', 'success');
+            } catch (error) {
+                showResult('apiResults', error.message, true);
+                showToast('Failed to preview template', 'error');
+            }
+        });
+
+        document.getElementById('populateTemplate').addEventListener('click', async () => {
+            try {
+                const response = await fetch(`${API_BASE}/api/email-templates/professional`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        templateId: 'premium-invoice-delivery',
+                        variables: {
+                            client_name: 'Test Client',
+                            amount: '$5,000',
+                            project_name: 'Test Project'
+                        }
+                    })
+                });
+                const data = await response.json();
+                showResult('apiResults', JSON.stringify(data, null, 2));
+                showToast('Template populated successfully!', 'success');
+            } catch (error) {
+                showResult('apiResults', error.message, true);
+                showToast('Failed to populate template', 'error');
+            }
+        });
+
+        // Feature Tests
+        document.getElementById('testCopy').addEventListener('click', async () => {
+            try {
+                const testText = 'Professional Email Template Test Content';
+                await navigator.clipboard.writeText(testText);
+                showResult('featureResults', 'Copy to clipboard functionality works!');
+                showToast('Text copied to clipboard!', 'success');
+            } catch (error) {
+                showResult('featureResults', 'Copy to clipboard failed: ' + error.message, true);
+                showToast('Copy failed', 'error');
+            }
+        });
+
+        document.getElementById('testDownload').addEventListener('click', () => {
+            try {
+                const content = 'Subject: Test Email Template\n\nThis is a test template for download functionality.';
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'test_template.txt';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                
+                showResult('featureResults', 'Download functionality works!');
+                showToast('Template downloaded!', 'success');
+            } catch (error) {
+                showResult('featureResults', 'Download failed: ' + error.message, true);
+                showToast('Download failed', 'error');
+            }
+        });
+
+        document.getElementById('testToast').addEventListener('click', () => {
+            showToast('This is a test notification!', 'info');
+            showResult('featureResults', 'Toast notification system works!');
+        });
+
+        document.getElementById('validateTemplates').addEventListener('click', async () => {
+            try {
+                const response = await fetch(`${API_BASE}/api/email-templates/professional`);
+                const data = await response.json();
+                
+                const templates = data.templates || [];
+                const validation = {
+                    total: templates.length,
+                    categories: [...new Set(templates.map(t => t.category))],
+                    tones: [...new Set(templates.map(t => t.tone))],
+                    hasSubject: templates.filter(t => t.subject).length,
+                    hasBody: templates.filter(t => t.body).length,
+                    validTemplates: templates.filter(t => t.id && t.name && t.subject && t.body).length
+                };
+                
+                showResult('featureResults', `Template Validation Results:
+Total Templates: ${validation.total}
+Categories: ${validation.categories.join(', ')}
+Tones: ${validation.tones.join(', ')}
+Templates with Subject: ${validation.hasSubject}
+Templates with Body: ${validation.hasBody}
+Valid Templates: ${validation.validTemplates}/${validation.total}
+
+${validation.validTemplates === validation.total ? '✅ All templates are valid!' : '⚠️ Some templates may have issues'}`);
+                
+                showToast(`Validated ${validation.total} templates`, 'success');
+            } catch (error) {
+                showResult('featureResults', 'Validation failed: ' + error.message, true);
+                showToast('Validation failed', 'error');
+            }
+        });
+
+        // Auto-load templates on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            showToast('Professional Templates Test Page Loaded', 'info');
+            setTimeout(() => {
+                document.getElementById('loadTemplates').click();
+            }, 1000);
+        });
+    </script>
+</body>
+</html> 

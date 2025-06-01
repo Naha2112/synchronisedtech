@@ -1,10 +1,11 @@
 "use server"
 
-import { query } from "@/lib/server-db"
 import { sendEmail } from "@/lib/email"
-import { getEmailTemplate } from "@/app/actions/email-templates"
-import { getClient } from "@/app/actions/clients"
-import { Workflow, WorkflowTrigger, WorkflowAction } from "@/app/actions/workflows"
+import { getEmailTemplate } from "@/app/autoflow/actions/email-templates"
+import { getClient } from "@/app/autoflow/actions/clients"
+import { Workflow, WorkflowTrigger, WorkflowAction } from "@/app/autoflow/actions/workflows"
+import { query } from "@/lib/db"
+import { triggerWorkflow } from "@/lib/triggerWorkflow"
 
 // Type for recipients
 type Recipient = {
@@ -14,16 +15,8 @@ type Recipient = {
 
 // Add this function for test mode
 async function logTestAction(workflowId: number, stepId: number | null, action: string, details: string) {
-  await query(
-    "INSERT INTO workflow_logs (workflow_id, step_id, action, status, message) VALUES (?, ?, ?, ?, ?)",
-    [
-      workflowId,
-      stepId,
-      action,
-      'info',
-      `TEST MODE: ${details}`
-    ]
-  )
+  // Replace any usage of query with Prisma or your new DB utility
+  // Make all queries global
 }
 
 /**

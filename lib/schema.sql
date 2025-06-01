@@ -4,6 +4,11 @@ CREATE TABLE IF NOT EXISTS users (
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
   password_hash VARCHAR(255) NOT NULL,
+  role ENUM('admin', 'manager', 'user') DEFAULT 'user' NOT NULL,
+  verified BOOLEAN DEFAULT FALSE,
+  verification_token VARCHAR(255),
+  reset_token VARCHAR(255),
+  reset_token_expires DATETIME NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -18,6 +23,24 @@ CREATE TABLE IF NOT EXISTS clients (
   created_by INT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (created_by) REFERENCES users(id)
+);
+
+-- Bookings table
+CREATE TABLE IF NOT EXISTS bookings (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  start_time DATETIME NOT NULL,
+  end_time DATETIME NOT NULL,
+  client_id INT NOT NULL,
+  status ENUM('scheduled', 'confirmed', 'cancelled', 'completed') DEFAULT 'scheduled',
+  location VARCHAR(255),
+  notes TEXT,
+  created_by INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (client_id) REFERENCES clients(id),
   FOREIGN KEY (created_by) REFERENCES users(id)
 );
 
@@ -99,10 +122,14 @@ CREATE TABLE IF NOT EXISTS workflow_steps (
 CREATE TABLE IF NOT EXISTS scheduled_emails (
   id INT AUTO_INCREMENT PRIMARY KEY,
   email_template_id INT NOT NULL,
-  recipient_type ENUM('client', 'client_group', 'all') NOT NULL,
+  recipient VARCHAR(255) NOT NULL,
+  subject VARCHAR(255) NOT NULL,
+  body TEXT NOT NULL,
+  recipient_type ENUM('client', 'client_group', 'all', 'direct') DEFAULT 'direct',
   recipient_data JSON,
   scheduled_date DATETIME NOT NULL,
-  status ENUM('pending', 'sent', 'failed') DEFAULT 'pending',
+  sent_date DATETIME NULL,
+  status ENUM('scheduled', 'sent', 'failed') DEFAULT 'scheduled',
   created_by INT NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -151,6 +178,6 @@ CREATE TABLE IF NOT EXISTS workflow_triggers (
 );
 
 -- Insert demo user
-INSERT INTO users (name, email, password_hash) 
-VALUES ('Demo User', 'demo@autoflow.com', '$2b$10$demohashedpasswordfordemopurposesonly') 
-ON DUPLICATE KEY UPDATE name = 'Demo User';
+INSERT INTO users (name, email, password_hash, role) 
+VALUES ('Demo User', 'demo@autoflow.com', '$2b$10$demohashedpasswordfordemopurposesonly', 'admin') 
+ON DUPLICATE KEY UPDATE name = 'Demo User', role = 'admin';

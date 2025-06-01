@@ -10,5 +10,8 @@ interface FormatCurrencyProps {
 
 export function FormatCurrency({ amount, className }: FormatCurrencyProps) {
   const { currency } = useCurrency()
+  
+  console.log('FormatCurrency component:', { amount, currency })
+  
   return <span className={className}>{formatCurrency(amount, currency)}</span>
 } 
