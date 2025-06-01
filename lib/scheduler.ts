@@ -5,7 +5,6 @@ import { getEmailTemplate } from "@/app/autoflow/actions/email-templates"
 import { getClient } from "@/app/autoflow/actions/clients"
 import { Workflow, WorkflowTrigger, WorkflowAction } from "@/app/autoflow/actions/workflows"
 import { query } from "@/lib/db"
-import { triggerWorkflow } from "@/lib/triggerWorkflow"
 
 // Type for recipients
 type Recipient = {
@@ -392,9 +391,9 @@ async function executeEmailAction(step: any, actionData: any, userId: number) {
 }
 
 /**
- * Trigger a workflow based on event
+ * Trigger a workflow based on event (scheduler-specific version)
  */
-export async function triggerWorkflow(
+export async function triggerSchedulerWorkflow(
   triggerType: WorkflowTrigger,
   userId: number,
   data: any = {}
